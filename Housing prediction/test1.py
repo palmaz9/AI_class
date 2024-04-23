@@ -1,0 +1,22 @@
+import tensorflow as tf
+from tensorflow import keras
+
+# Step 1: Load the California Housing dataset
+(x_train, y_train), (x_test, y_test) = keras.datasets.california_housing.load_data()
+
+# Step 2: Define and fit a neural network
+model = keras.Sequential([
+    keras.layers.Dense(64, activation='relu', input_shape=(8,)),
+    keras.layers.Dense(64, activation='relu'),
+    keras.layers.Dense(1)
+])
+
+# Compile the model
+model.compile(optimizer='adam', loss='mean_squared_error')
+
+# Fit the model to the training data
+model.fit(x_train, y_train, epochs=10, batch_size=32)
+
+# Step 3: Document the model and its accuracy
+loss = model.evaluate(x_test, y_test)
+print("Mean Squared Error:", loss)

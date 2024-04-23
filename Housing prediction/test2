@@ -1,0 +1,17 @@
+import tensorflow as tf
+from tensorflow import keras
+
+(x_train, y_train), (x_test, y_test) = keras.datasets.california_housing.load_data()
+
+model_variation_1 = keras.Sequential([
+    keras.layers.Dense(64, activation='relu', input_shape=(8,)),
+    keras.layers.Dense(64, activation='relu'),
+    keras.layers.Dense(64, activation='relu'),
+    keras.layers.Dense(1)
+])
+
+model_variation_1.compile(optimizer='adam', loss='mean_squared_error')
+model_variation_1.fit(x_train, y_train, epochs=10, batch_size=32)
+
+loss_variation_1 = model_variation_1.evaluate(x_test, y_test)
+print("Mean Squared Error (Variation 1):", loss_variation_1)
