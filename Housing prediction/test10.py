@@ -1,18 +1,17 @@
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from tensorflow import keras
+from tensorflow.keras.layers import Dense, BatchNormalization, Dropout
 
 # Load the dataset (replace with the appropriate Keras dataset)
 (x_train, y_train), (x_test, y_test) = keras.datasets.california_housing.load_data()
 
 # Create the model
 model = keras.Sequential([
-    keras.layers.Dense(64, activation='relu', input_shape=(x_train.shape[1],)),
-    keras.layers.Dense(64, activation='relu'),
-    keras.layers.Dense(64, activation='relu'),
-    keras.layers.Dense(64, activation='relu'),
-    keras.layers.Dense(64, activation='relu'),
-    keras.layers.Dense(1)
+    Dense(64, activation='relu', input_shape=(x_train.shape[1],)),
+    BatchNormalization(),
+    Dropout(0.2),  # Dropout added
+    Dense(1)
 ])
 
 # Compile the model
